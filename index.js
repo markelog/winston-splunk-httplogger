@@ -83,6 +83,8 @@ var Splunk = function (config) {
   config.splunk.maxBatchCount = 1;
   this.server = new SplunkLogger(config.splunk);
 
+  this.server.error = () => { }
+
   // Override the default event formatter
   if (config.splunk.eventFormatter) {
     this.server.eventFormatter = config.splunk.eventFormatter;
@@ -144,13 +146,12 @@ Splunk.prototype.log = function (level, msg, meta, callback) {
     }
   }
 
-  this.server.send(payload, function (err) {
+  this.server.send(payload, (err) => {
     if (err) {
-      callback(err);
-      return;
+      this.emit('warn', err);
+    } else {
+      this.emit('logged');
     }
-
-    self.emit('logged');
     callback(null);
   });
 };
