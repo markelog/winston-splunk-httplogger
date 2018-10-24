@@ -1,8 +1,8 @@
 {
-  "name": "winston-splunk-httplogger",
+  "name": "winston-splunk-http",
   "version": "1.2.2",
   "description": "A Winston compatible transport for logging to a Splunk HTTP Event Collector",
-  "homepage": "https://github.com/adrianhall/winston-splunk-httplogger",
+  "homepage": "https://github.com/markelog/winston-splunk-http",
   "main": "index.js",
   "scripts": {
     "pretest": "eslint index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adrianhall/winston-splunk-httplogger.git"
+    "url": "https://github.com/markelog/winston-splunk-http.git"
   },
   "keywords": [
     "splunk",

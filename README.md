@@ -15,7 +15,7 @@ npm install --save winston winston-splunk-httplogger
 
 ```javascript
 var winston = require('winston'),
-    SplunkStreamEvent = require('winston-splunk-httplogger');
+    Splunk = require('winston-splunk-http');
 
 var splunkSettings = {
     token: process.env.SPLUNK_TOKEN,
@@ -26,7 +26,7 @@ var splunkSettings = {
 var logger = new winston.Logger({
     transports: [
         new winston.transports.Console(),
-        new SplunkStreamEvent({ splunk: splunkSettings })
+        new Splunk({ splunk: splunkSettings })
     ]
 });
 
@@ -35,11 +35,11 @@ logger.info('This is sent to Splunk');
 
 ## API
 
-### splunkTransport = new SplunkStreamEvent(config);
+### splunkTransport = new Splunk(config);
 
-Create a new instance of `SplunkStreamEvent`. Takes the following configuration:
+Create a new instance of `Splunk`. Takes the following configuration:
 
- * **config:** configuration settings for the `SplunkStreamEvent` instance
+ * **config:** configuration settings for the `Splunk` instance
  * **config.splunk:** the `Splunk Logger` settings
  * **config.splunk.token:** the Splunk HTTP Event Collector token
  * **[config.level=info]:** logging level to use, will show up as the `severity`
@@ -76,7 +76,7 @@ Create a new instance of `SplunkStreamEvent`. Takes the following configuration:
   5. Walk through the wizard to configure your new HTTP Event Collector
 
 Splunk will provide you with a token at the end of the wizard.  You need to insert that
-token into the splunk object you use to create the SplunkStreamEvent() object.  In the
+token into the splunk object you use to create the Splunk() object.  In the
 example above, this is done by placing the token in the SPLUNK_TOKEN environment variable.
 
 ## See Also

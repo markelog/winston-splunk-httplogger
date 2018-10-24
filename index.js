@@ -50,11 +50,11 @@ var SplunkLogger = require('splunk-logging').Logger;
  *
  * @constructor
  */
-var SplunkStreamEvent = function (config) {
+var Splunk = function (config) {
   winston.Transport.call(this, config);
 
   /** @property {string} name - the name of the transport */
-  this.name = 'SplunkStreamEvent';
+  this.name = 'Splunk';
 
   /** @property {string} level - the minimum level to log */
   this.level = config.level || 'info';
@@ -89,14 +89,14 @@ var SplunkStreamEvent = function (config) {
   }
 };
 
-util.inherits(SplunkStreamEvent, winston.Transport);
+util.inherits(Splunk, winston.Transport);
 
 /**
  * Returns the configuration for this logger
  * @returns {Object} Configuration for this logger.
  * @public
  */
-SplunkStreamEvent.prototype.config = function () {
+Splunk.prototype.config = function () {
   return this.server.config;
 };
 
@@ -104,13 +104,13 @@ SplunkStreamEvent.prototype.config = function () {
  * Core logging method exposed to Winston.
  *
  * @function log
- * @member SplunkStreamEvent
+ * @member Splunk
  * @param {string} level - the level at which to log the message
  * @param {string} msg - the message to log
  * @param {object} [meta] - any additional meta data to attach
  * @param {function} callback - Continuation to respond to when complete
  */
-SplunkStreamEvent.prototype.log = function (level, msg, meta, callback) {
+Splunk.prototype.log = function (level, msg, meta, callback) {
   var self = this;
 
   if (meta instanceof Error) {
@@ -146,15 +146,17 @@ SplunkStreamEvent.prototype.log = function (level, msg, meta, callback) {
 
   this.server.send(payload, function (err) {
     if (err) {
-      self.emit('error', err);
+      callback(err);
+      return;
     }
+
     self.emit('logged');
-    callback(null, true);
+    callback(null);
   });
 };
 
 // Insert this object into the Winston transports list
-winston.transports.SplunkStreamEvent = SplunkStreamEvent;
+winston.transports.Splunk = Splunk;
 
 // Export the Winston transport
-module.exports = exports = winston.transports.SplunkStreamEvent;
+module.exports = exports = winston.transports.Splunk;
