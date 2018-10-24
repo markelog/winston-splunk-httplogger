@@ -83,7 +83,9 @@ var Splunk = function (config) {
   config.splunk.maxBatchCount = 1;
   this.server = new SplunkLogger(config.splunk);
 
-  this.server.error = () => { }
+  this.server.error = (err) => {
+    this.emit('warn', err);
+  }
 
   // Override the default event formatter
   if (config.splunk.eventFormatter) {
