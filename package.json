@@ -1,6 +1,6 @@
 {
   "name": "winston-splunk-http",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A Winston compatible transport for logging to a Splunk HTTP Event Collector",
   "homepage": "https://github.com/markelog/winston-splunk-http",
   "main": "index.js",
