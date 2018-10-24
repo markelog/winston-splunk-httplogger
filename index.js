@@ -149,11 +149,9 @@ Splunk.prototype.log = function (level, msg, meta, callback) {
   }
 
   this.server.send(payload, (err) => {
-    if (err) {
-      this.emit('warn', err);
-    } else {
+    if (!err) {
       this.emit('logged');
-    }
+    } 
     callback(null);
   });
 };
